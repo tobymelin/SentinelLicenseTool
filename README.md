@@ -34,7 +34,7 @@ Requires *lsmon.exe* and *lsapiw32.dll*, both of which are distributed with some
 - Added ability to show all licenses on server
 
 ## TODO
-- Specify license server explicitly
+- Specify license server explicitly (top prio, currently defaults to DC01)
 - Add license expiry date?
 - Indicate if a user is locking more than one license
 

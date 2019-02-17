@@ -57,13 +57,13 @@ namespace LicenseManager
             userListBox.KeyPress += new KeyPressEventHandler(Konami);
         }
 
-        /* Form1_Load()
+        /* InitConnection()
          * 
-         * Define a separate window load handler to handle list updates
+         * Define a separate method to handle list updates
          * after initialisation. Allows for catching any propagated errors
          * due to missing lsmon.exe.
          */
-        private void Form1_Load(object sender, EventArgs e)
+        private void InitConnection()
         {
             try
             {
@@ -77,10 +77,22 @@ namespace LicenseManager
                     "lsmon.exe not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
+            catch (System.Net.WebException)
+            {
+                MessageBox.Show("ERROR: Could not reach destination server. Please ensure the computer " +
+                    "has a working internet connection and the license server is online",
+                    "License server unavailable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void RefreshSoftwareList()
         {
+            if (software == null)
+            {
+                InitConnection();
+                return;
+            }
+
             try
             {
                 software.ParseLicenses();
@@ -247,6 +259,11 @@ namespace LicenseManager
 
             Invoke(new Action(() => { refreshButton.Enabled = true; }));
             threadRunning = false;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            InitConnection();
         }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
