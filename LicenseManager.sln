@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicenseManager", "LicenseManager.csproj", "{DF57399D-C7B5-4E23-94FD-34A9AC1F9C18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicenseManagerTests", "..\LicenseManagerTests\LicenseManagerTests.csproj", "{B6FD8C61-F6FB-486A-BFAD-50070A1BCD49}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF57399D-C7B5-4E23-94FD-34A9AC1F9C18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF57399D-C7B5-4E23-94FD-34A9AC1F9C18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF57399D-C7B5-4E23-94FD-34A9AC1F9C18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF57399D-C7B5-4E23-94FD-34A9AC1F9C18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6FD8C61-F6FB-486A-BFAD-50070A1BCD49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6FD8C61-F6FB-486A-BFAD-50070A1BCD49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6FD8C61-F6FB-486A-BFAD-50070A1BCD49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6FD8C61-F6FB-486A-BFAD-50070A1BCD49}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7F6EEAC2-C969-4B81-8C6C-F441F6EA5DCF}
+	EndGlobalSection
+EndGlobal
