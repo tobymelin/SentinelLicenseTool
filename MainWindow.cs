@@ -34,6 +34,7 @@ namespace LicenseManager
         DateTime lastRefreshed;
 
         AboutDialog dlg_about = new AboutDialog();
+        ServerDialog dlg_srvconfig = new ServerDialog();
 
         Thread licNotifierThread;
         bool threadRunning = false;
@@ -55,6 +56,9 @@ namespace LicenseManager
             this.KeyPress += new KeyPressEventHandler(Konami);
             softwareListBox.KeyPress += new KeyPressEventHandler(Konami);
             userListBox.KeyPress += new KeyPressEventHandler(Konami);
+
+            // TODO: Implement isolated storage handler to provide
+            //       SentinelParser with a user-specified server address.
         }
 
         /* InitConnection()
@@ -281,6 +285,11 @@ namespace LicenseManager
         private void showAllLicensesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UpdateLists(true);
+        }
+
+        private void changeServerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dlg_srvconfig.ShowDialog();
         }
     }
 }

@@ -39,6 +39,7 @@
             this.licenseLabel = new System.Windows.Forms.Label();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllLicensesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -180,6 +181,7 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showAllLicensesToolStripMenuItem,
+            this.changeServerToolStripMenuItem,
             this.quitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -192,6 +194,13 @@
             this.showAllLicensesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.showAllLicensesToolStripMenuItem.Text = "Show all licenses";
             this.showAllLicensesToolStripMenuItem.Click += new System.EventHandler(this.showAllLicensesToolStripMenuItem_Click);
+            // 
+            // changeServerToolStripMenuItem
+            // 
+            this.changeServerToolStripMenuItem.Name = "changeServerToolStripMenuItem";
+            this.changeServerToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.changeServerToolStripMenuItem.Text = "Change server...";
+            this.changeServerToolStripMenuItem.Click += new System.EventHandler(this.changeServerToolStripMenuItem_Click);
             // 
             // quitToolStripMenuItem
             // 
@@ -265,6 +274,7 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem changeServerToolStripMenuItem;
     }
 }
 
