@@ -35,6 +35,11 @@ namespace LicenseParser
             LicSrv = new SentinelInterface.SentinelInterface();
         }
 
+        public SentinelParser(string SrvAddress)
+        {
+            LicSrv = new SentinelInterface.SentinelInterface(SrvAddress);
+        }
+
         /* ParseLicenses
          * 
          * Function used as the main license parser. Updates the instance

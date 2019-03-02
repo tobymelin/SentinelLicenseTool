@@ -27,6 +27,7 @@ namespace LicenseManager
     public partial class MainWindow : Form
     {
         public SentinelParser software;
+        public string SrvAddress = "DC01";
 
         List<string> noLicenses = new List<string> { "No licenses found." };
         List<string> emptyList = new List<string> { };
@@ -71,7 +72,11 @@ namespace LicenseManager
         {
             try
             {
-                software = new SentinelParser();
+                if (SrvAddress != "")
+                    software = new SentinelParser(SrvAddress);
+                else
+                    software = new SentinelParser();
+
                 RefreshSoftwareList();
             }
             catch (System.ComponentModel.Win32Exception)
@@ -289,7 +294,15 @@ namespace LicenseManager
 
         private void changeServerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            dlg_srvconfig.ShowDialog();
+            dlg_srvconfig.srvTextBox.Text = SrvAddress;
+
+            if (dlg_srvconfig.ShowDialog() == DialogResult.OK)
+            {
+                if (dlg_srvconfig.srvTextBox.Text != "") {
+                    SrvAddress = dlg_srvconfig.srvTextBox.Text;
+                    InitConnection();
+                }
+            }
         }
     }
 }
