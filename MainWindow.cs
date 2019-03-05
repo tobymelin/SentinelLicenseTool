@@ -27,7 +27,7 @@ namespace LicenseManager
     public partial class MainWindow : Form
     {
         public SentinelParser software;
-        public string SrvAddress = "DC01";
+        public string SrvAddress;
 
         List<string> noLicenses = new List<string> { "No licenses found." };
         List<string> emptyList = new List<string> { };
@@ -51,6 +51,7 @@ namespace LicenseManager
             this.Text = this.ProductName + " v" + this.ProductVersion;
 
             dlg_about.Owner = this;
+            this.SrvAddress = Properties.Settings.Default.SrvAddress;
             
             this.Load += new System.EventHandler(Form1_Load);
             
@@ -300,6 +301,8 @@ namespace LicenseManager
             {
                 if (dlg_srvconfig.srvTextBox.Text != "") {
                     SrvAddress = dlg_srvconfig.srvTextBox.Text;
+                    Properties.Settings.Default.SrvAddress = SrvAddress;
+                    Properties.Settings.Default.Save();
                     InitConnection();
                 }
             }
