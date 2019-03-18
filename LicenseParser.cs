@@ -20,22 +20,20 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Threading;
-using SentinelInterface;
 
 namespace LicenseParser
 {
-    public class SentinelParser
+    public class LicenseParser
     {
-        //private string licenseFile;
         private SentinelInterface.SentinelInterface LicSrv;
         private readonly string[] software = { "Safe", "EtabNL", "EtabPL", "SAPPL", "SAP", "T.TD.User", "T.SD.Design.U", "CSC.FT.CON.All", "CSIxR" };
         public Dictionary<string, License> licenseInfo = new Dictionary<string, License>();
 
-        public SentinelParser() {
+        public LicenseParser() {
             LicSrv = new SentinelInterface.SentinelInterface();
         }
 
-        public SentinelParser(string SrvAddress)
+        public LicenseParser(string SrvAddress)
         {
             LicSrv = new SentinelInterface.SentinelInterface(SrvAddress);
         }
@@ -49,12 +47,6 @@ namespace LicenseParser
         public void ParseLicenses() {
             int lvl;
 
-            //if (!File.Exists(licenseFile))
-            //{
-            //    Console.WriteLine("File does not exist in path.");
-            //    licenseInfo.Clear();
-            //    return;
-            //}
             LicSrv.QueryServer();
 
             // Wait until licensing information finishes loading. Recheck every 250ms

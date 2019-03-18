@@ -21,13 +21,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using LicenseParser;
 
 namespace LicenseManager
 {
     public partial class MainWindow : Form
     {
-        public SentinelParser software;
+        public LicenseParser.LicenseParser software;
         public string SrvAddress;
 
         List<string> noLicenses = new List<string> { "No licenses found." };
@@ -63,9 +62,6 @@ namespace LicenseManager
             this.KeyPress += new KeyPressEventHandler(Konami);
             softwareListBox.KeyPress += new KeyPressEventHandler(Konami);
             userListBox.KeyPress += new KeyPressEventHandler(Konami);
-
-            // TODO: Implement isolated storage handler to provide
-            //       SentinelParser with a user-specified server address.
         }
 
         /* InitConnection()
@@ -77,9 +73,9 @@ namespace LicenseManager
         private void InitConnection()
         {
             if (SrvAddress != "")
-                software = new SentinelParser(SrvAddress);
+                software = new LicenseParser.LicenseParser(SrvAddress);
             else
-                software = new SentinelParser();
+                software = new LicenseParser.LicenseParser();
 
             RefreshSoftwareList();
         }

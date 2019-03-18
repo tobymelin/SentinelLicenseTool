@@ -33,8 +33,13 @@ Requires *lsmon.exe* and *lsapiw32.dll*, both of which are distributed with some
 - Improved exception handling for server timeouts
 - Added ability to show all licenses on server
 
+### v1.4
+- General code cleanup
+- Allow user to specify server
+- Fixed UI lockups if server is unavailable
+- Fixed license notifier intervals
+
 ## TODO
-- Specify license server explicitly (top prio, currently defaults to DC01)
 - Add license expiry date?
 - Indicate if a user is locking more than one license
 

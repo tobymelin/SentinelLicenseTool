@@ -19,7 +19,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using System.Threading;
 
 namespace SentinelInterface
 {
@@ -44,18 +43,23 @@ namespace SentinelInterface
             }
             else
             {
-                this.FileOverride = false;
                 this.SrvAddress = "DC01";
-                //QueryServer();
                 File.WriteAllText("lsmon-latest.txt", SrvOutput);
             }
         }
 
         public SentinelInterface(string SrvAddress)
         {
-            this.FileOverride = false;
-            this.SrvAddress = SrvAddress;
-            //QueryServer();
+            if (File.Exists("lsmon.txt"))
+            {
+                this.FileOverride = true;
+                this.SrvOutput = File.ReadAllText("lsmon.txt");
+                Console.WriteLine("lsmon.txt override active");
+            }
+            else
+            {
+                this.SrvAddress = SrvAddress;
+            }
         }
 
         /* QueryServer
@@ -103,10 +107,6 @@ namespace SentinelInterface
                         }
                     });
 
-                    // Sleep for 250ms to allow the query to get passed to the server
-                    // and return licensing information.
-                    // Thread.Sleep(250);
-                    // process.StandardInput.WriteLine();
                     process.BeginOutputReadLine();
                     process.WaitForExit();
                     isLoading = false;
