@@ -242,7 +242,7 @@ namespace LicenseManager
                     MessageBox.Show("License available!");
                     break;
                 }
-                Thread.Sleep(TimeSpan.FromMinutes(60));
+                Thread.Sleep(TimeSpan.FromSeconds(60));
 
                 Invoke(new Action(() => RefreshSoftwareList()));
             }
@@ -279,7 +279,9 @@ namespace LicenseManager
             lastRefreshed = DateTime.Now;
             refreshedLabel.Text = "Last updated: " + lastRefreshed.ToShortTimeString();
             UpdateLists(true);
-            refreshButton.Enabled = true;
+
+            if (!threadRunning)
+                refreshButton.Enabled = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
