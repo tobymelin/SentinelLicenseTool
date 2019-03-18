@@ -53,7 +53,7 @@ namespace LicenseManager
             dlg_about.Owner = this;
             this.SrvAddress = Properties.Settings.Default.SrvAddress;
             
-            this.Load += new System.EventHandler(Form1_Load);
+            this.Shown += new System.EventHandler(Form1_Load);
             
             this.KeyPress += new KeyPressEventHandler(Konami);
             softwareListBox.KeyPress += new KeyPressEventHandler(Konami);
