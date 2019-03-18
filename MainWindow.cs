@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -33,10 +34,12 @@ namespace LicenseManager
         List<string> emptyList = new List<string> { };
         string keySequence = string.Empty;
         DateTime lastRefreshed;
+        bool refreshFailed = false;
 
         AboutDialog dlg_about = new AboutDialog();
         ServerDialog dlg_srvconfig = new ServerDialog();
 
+        BackgroundWorker bwLicenseRefresher = new BackgroundWorker();
         Thread licNotifierThread;
         bool threadRunning = false;
         string checkLicense;
@@ -52,9 +55,11 @@ namespace LicenseManager
 
             dlg_about.Owner = this;
             this.SrvAddress = Properties.Settings.Default.SrvAddress;
-            
-            this.Shown += new System.EventHandler(Form1_Load);
-            
+
+            bwLicenseRefresher.DoWork += LicenseRefresher;
+            bwLicenseRefresher.RunWorkerCompleted += RefreshCompleted;
+            this.Load += Form1_Load;
+
             this.KeyPress += new KeyPressEventHandler(Konami);
             softwareListBox.KeyPress += new KeyPressEventHandler(Konami);
             userListBox.KeyPress += new KeyPressEventHandler(Konami);
@@ -71,28 +76,12 @@ namespace LicenseManager
          */
         private void InitConnection()
         {
-            try
-            {
-                if (SrvAddress != "")
-                    software = new SentinelParser(SrvAddress);
-                else
-                    software = new SentinelParser();
+            if (SrvAddress != "")
+                software = new SentinelParser(SrvAddress);
+            else
+                software = new SentinelParser();
 
-                RefreshSoftwareList();
-            }
-            catch (System.ComponentModel.Win32Exception)
-            {
-                MessageBox.Show("ERROR: Could not find lsmon.exe. Please ensure this executable is in " +
-                    "the same folder as the main program. License monitor will now exit.",
-                    "lsmon.exe not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Close();
-            }
-            catch (System.Net.WebException)
-            {
-                MessageBox.Show("ERROR: Could not reach destination server. Please ensure the computer " +
-                    "has a working internet connection and the license server is online",
-                    "License server unavailable", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            RefreshSoftwareList();
         }
 
         public void RefreshSoftwareList()
@@ -102,19 +91,10 @@ namespace LicenseManager
                 InitConnection();
                 return;
             }
-
-            try
-            {
-                software.ParseLicenses();
-            }
-            catch (System.Net.WebException)
-            {
-                MessageBox.Show("ERROR: Could not access the license server. Please try again.",
-                    "Server not available", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            lastRefreshed = DateTime.Now;
-            refreshedLabel.Text = "Last updated: " + lastRefreshed.ToShortTimeString();
-            UpdateLists(true);
+            
+            refreshedLabel.Text = "Refreshing licenses";
+            refreshButton.Enabled = false;
+            bwLicenseRefresher.RunWorkerAsync();
         }
 
         /* UpdateLists
@@ -173,7 +153,7 @@ namespace LicenseManager
          */
         private void RefreshButton_click(object sender, EventArgs e)
         {
-            if (DateTime.Now.Subtract(lastRefreshed).Minutes < 1)
+            if (DateTime.Now.Subtract(lastRefreshed).Minutes < 1 && !refreshFailed)
                 return;
 
             RefreshSoftwareList();
@@ -269,6 +249,37 @@ namespace LicenseManager
 
             Invoke(new Action(() => { refreshButton.Enabled = true; }));
             threadRunning = false;
+        }
+
+        private void LicenseRefresher(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                software.ParseLicenses();
+                refreshFailed = false;
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                MessageBox.Show("ERROR: Could not find lsmon.exe. Please ensure this executable is in " +
+                    "the same folder as the main program. License monitor will now exit.",
+                    "lsmon.exe not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                refreshFailed = true;
+            }
+            catch (System.Net.WebException)
+            {
+                MessageBox.Show("ERROR: Could not reach destination server. Please ensure the computer " +
+                    "has a working internet connection and the license server is online",
+                    "License server unavailable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                refreshFailed = true;
+            }
+        }
+
+        private void RefreshCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            lastRefreshed = DateTime.Now;
+            refreshedLabel.Text = "Last updated: " + lastRefreshed.ToShortTimeString();
+            UpdateLists(true);
+            refreshButton.Enabled = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)

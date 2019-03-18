@@ -46,7 +46,7 @@ namespace SentinelInterface
             {
                 this.FileOverride = false;
                 this.SrvAddress = "DC01";
-                QueryServer();
+                //QueryServer();
                 File.WriteAllText("lsmon-latest.txt", SrvOutput);
             }
         }
@@ -55,7 +55,7 @@ namespace SentinelInterface
         {
             this.FileOverride = false;
             this.SrvAddress = SrvAddress;
-            QueryServer();
+            //QueryServer();
         }
 
         /* QueryServer
