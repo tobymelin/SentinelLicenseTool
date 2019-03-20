@@ -149,7 +149,7 @@ namespace LicenseManager
          */
         private void RefreshButton_click(object sender, EventArgs e)
         {
-            if (DateTime.Now.Subtract(lastRefreshed).Minutes < 1 && !refreshFailed)
+            if (DateTime.Now.Subtract(lastRefreshed).TotalSeconds < 30 && !refreshFailed)
                 return;
 
             RefreshSoftwareList();

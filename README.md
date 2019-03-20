@@ -36,8 +36,10 @@ Requires *lsmon.exe* and *lsapiw32.dll*, both of which are distributed with some
 ### v1.4
 - General code cleanup
 - Allow user to specify server
+- Improved notification when refreshing licenses
 - Fixed UI lockups if server is unavailable
 - Fixed license notifier intervals
+- Reduced refresh timeout to once every 30s (down from once per minute)
 
 ## TODO
 - Add license expiry date?
