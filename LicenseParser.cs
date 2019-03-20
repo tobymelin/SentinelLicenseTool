@@ -50,8 +50,8 @@ namespace LicenseParser
             LicSrv.QueryServer();
 
             // Wait until licensing information finishes loading. Recheck every 250ms
-            while (LicSrv.isLoading)
-                Thread.Sleep(250);
+            //while (LicSrv.isLoading)
+            //    Thread.Sleep(250);
 
             // Start parsing the licensing output line by line.
             // TODO: Refactor to use a dictionary parser instead?
