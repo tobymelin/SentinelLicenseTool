@@ -32,6 +32,7 @@ namespace SentinelInterface
         public bool isLoading = false;
         public bool FileOverride = false;
         public string SrvAddress = string.Empty;
+        private ProcessStartInfo lsmon;
 
         public SentinelInterface()
         {
@@ -43,8 +44,8 @@ namespace SentinelInterface
             }
             else
             {
+                this.FileOverride = false;
                 this.SrvAddress = "DC01";
-                File.WriteAllText("lsmon-latest.txt", SrvOutput);
             }
         }
 
@@ -58,8 +59,23 @@ namespace SentinelInterface
             }
             else
             {
+                this.FileOverride = false;
                 this.SrvAddress = SrvAddress;
+                ProcessSetup();
             }
+        }
+
+        private void ProcessSetup()
+        {
+            lsmon = new ProcessStartInfo
+            {
+                FileName = "lsmon.exe",
+                Arguments = SrvAddress,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true
+            };
         }
 
         /* QueryServer
@@ -71,14 +87,6 @@ namespace SentinelInterface
         {
             if (FileOverride)
                 return;
-
-            ProcessStartInfo lsmon = new ProcessStartInfo();
-            lsmon.FileName = "lsmon.exe";
-            lsmon.Arguments = SrvAddress;
-            lsmon.UseShellExecute = false;
-            lsmon.CreateNoWindow = true;
-            lsmon.RedirectStandardInput = true;
-            lsmon.RedirectStandardOutput = true;
 
             StringBuilder output = new StringBuilder();
 
@@ -119,6 +127,7 @@ namespace SentinelInterface
                         throw new System.Net.WebException("Timed out while attempting to reach the license server.");
 
                     Console.WriteLine("Finished reading license information.");
+                    //File.WriteAllText("lsmon-latest.txt", SrvOutput);
                 }
             }
             // Catch errors related to missing lsmon.exe or lsmon.dll
