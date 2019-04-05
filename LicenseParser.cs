@@ -26,7 +26,7 @@ namespace LicenseParser
     public class LicenseParser
     {
         private SentinelInterface.SentinelInterface LicSrv;
-        private readonly string[] software = { "Safe", "EtabNL", "EtabPL", "SAPPL", "SAP", "T.TD.User", "T.SD.Design.U", "CSC.FT.CON.All", "CSIxR" };
+        //private readonly string[] software = { "Safe", "EtabNL", "EtabPL", "SAPPL", "SAP", "T.TD.User", "T.SD.Design.U", "CSC.FT.CON.User", "CSIxR" };
         public Dictionary<string, License> licenseInfo = new Dictionary<string, License>();
 
         public LicenseParser() {
