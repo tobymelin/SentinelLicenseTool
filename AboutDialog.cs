@@ -28,7 +28,7 @@ namespace LicenseManager
             InitializeComponent();
 
             label1.Text = this.ProductName + " v" + ProductVersion;
-            label1.Text += "\n\n© Tobias Melin, 2018 - 2019";
+            label1.Text += "\n\n© Tobias Melin, 2018 - 2020";
 
             LinkLabel.Link githubLink = new LinkLabel.Link();
             githubLink.LinkData = "https://github.com/tobymelin";
