@@ -72,10 +72,7 @@ namespace LicenseManager
          */
         private void InitConnection()
         {
-            if (SrvAddress != "")
-                software = new LicenseParser.LicenseParser(SrvAddress);
-            else
-                software = new LicenseParser.LicenseParser();
+            software = new LicenseParser.LicenseParser(SrvAddress);
 
             RefreshSoftwareList();
         }

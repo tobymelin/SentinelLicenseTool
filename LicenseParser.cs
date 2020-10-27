@@ -29,7 +29,7 @@ namespace LicenseParser
         public Dictionary<string, License> licenseInfo = new Dictionary<string, License>();
 
         public LicenseParser() {
-            LicSrv = new SentinelInterface.SentinelInterface();
+            LicSrv = new SentinelInterface.SentinelInterface("");
         }
 
         public LicenseParser(string SrvAddress)

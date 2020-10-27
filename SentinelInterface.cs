@@ -34,21 +34,6 @@ namespace SentinelInterface
         public string SrvAddress = string.Empty;
         private ProcessStartInfo lsmon;
 
-        public SentinelInterface()
-        {
-            if (File.Exists("lsmon.txt"))
-            {
-                this.FileOverride = true;
-                this.SrvOutput = File.ReadAllText("lsmon.txt");
-                Console.WriteLine("lsmon.txt override active");
-            }
-            else
-            {
-                this.FileOverride = false;
-                this.SrvAddress = "DC01";
-            }
-        }
-
         public SentinelInterface(string SrvAddress)
         {
             if (File.Exists("lsmon.txt"))
@@ -60,7 +45,14 @@ namespace SentinelInterface
             else
             {
                 this.FileOverride = false;
-                this.SrvAddress = SrvAddress;
+
+                if (SrvAddress == "") {
+                    this.SrvAddress = "DC01";
+                }
+                else {
+                    this.SrvAddress = SrvAddress;
+                }
+
                 ProcessSetup();
             }
         }
