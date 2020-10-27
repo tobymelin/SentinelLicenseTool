@@ -41,6 +41,10 @@ Requires *lsmon.exe* and *lsapiw32.dll*, both of which are distributed with some
 - Fixed license notifier intervals
 - Reduced refresh timeout to once every 30s (down from once per minute)
 
+### v1.5
+- Continued code cleanup to prepare for Autodesk licenses
+- Fixed bug where automatically refreshing a license could crash the program if the update was timing out
+
 ## TODO
 - Add license expiry date?
 - Indicate if a user is locking more than one license

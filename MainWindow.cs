@@ -85,9 +85,11 @@ namespace LicenseManager
                 return;
             }
             
-            refreshedLabel.Text = "Refreshing licenses";
-            refreshButton.Enabled = false;
-            bwLicenseRefresher.RunWorkerAsync();
+            if (!bwLicenseRefresher.IsBusy) {
+                refreshedLabel.Text = "Refreshing licenses";
+                refreshButton.Enabled = false;
+                bwLicenseRefresher.RunWorkerAsync();
+            }
         }
 
         /* UpdateLists
