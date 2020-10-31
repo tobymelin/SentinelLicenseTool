@@ -307,12 +307,10 @@ namespace LicenseManager
 
             if (dlg_srvconfig.ShowDialog() == DialogResult.OK)
             {
-                if (dlg_srvconfig.srvTextBox.Text != "") {
-                    SrvAddress = dlg_srvconfig.srvTextBox.Text;
-                    Properties.Settings.Default.SrvAddress = SrvAddress;
-                    Properties.Settings.Default.Save();
-                    InitConnection();
-                }
+                SrvAddress = dlg_srvconfig.srvTextBox.Text;
+                Properties.Settings.Default.SrvAddress = SrvAddress;
+                Properties.Settings.Default.Save();
+                InitConnection();
             }
         }
     }
