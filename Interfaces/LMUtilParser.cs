@@ -74,14 +74,10 @@ namespace LMUtil
 
                 while ((line = reader.ReadLine()) != null)
                 {
-                    // if (!line.Contains("|-")) {
-                    //     if (line.Contains("Failed to resolve the server host"))
-                    //         throw new System.Net.WebException("Failed to resolve the server host.");
+                    if (line.Contains("Cannot connect to license server")) {
+                        throw new System.Net.WebException("Failed to resolve the server host.");
+                    }
 
-                    //     continue;
-                    // }
-
-                    // lvl = (line.IndexOf("|-") - 1) / 2;
                     lvl = Regex.Match(line, @"^\s+").Length / 2;
 
 
@@ -171,28 +167,6 @@ namespace LMUtil
                     // }
                 }
             }
-        }
-
-        /* LineMatcher
-         * @line : String representing a single licensing information line
-         * 
-         * Helper function used to parse individual lines in the licensing
-         * information.
-         * 
-         * Returns: an array of strings. The first value will always be the 
-         * field name, and the second value (if existing) is the field value.
-         * Lines without a field value are categories, generally indicating
-         * the start of a new license.
-         */
-        private string[] LineMatcher(string line)
-        {
-            string[] dictVals = line.Split(new[] { ':' }, 2);
-            dictVals[0] = dictVals[0].Replace("|- ", string.Empty).Trim();
-
-            if (dictVals.Length > 1)
-                dictVals[1] = dictVals[1].Replace("\"", string.Empty).Trim();
-
-            return dictVals;
         }
 
         /* LicensesInUse
