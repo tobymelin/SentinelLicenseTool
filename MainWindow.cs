@@ -29,6 +29,8 @@ namespace LicenseManager
         // public LicenseParser.LicenseParser software;
         public LMUtil.LicenseParser software;
         public string SrvAddress;
+        public bool AutodeskLicenses = true;
+        public bool SentinelLicenses = true;
 
         List<string> noLicenses = new List<string> { "No licenses found." };
         List<string> emptyList = new List<string> { };
@@ -55,6 +57,8 @@ namespace LicenseManager
 
             dlg_about.Owner = this;
             this.SrvAddress = Properties.Settings.Default.SrvAddress;
+            this.AutodeskLicenses = Properties.Settings.Default.FlexNetLicenses;
+            this.SentinelLicenses = Properties.Settings.Default.RMSLicenses;
 
             bwLicenseRefresher.DoWork += LicenseRefresher;
             bwLicenseRefresher.RunWorkerCompleted += RefreshCompleted;
@@ -305,12 +309,14 @@ namespace LicenseManager
 
         private void changeServerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            dlg_srvconfig.srvTextBox.Text = SrvAddress;
+            dlg_srvconfig.srvTextBox.Text = this.SrvAddress;
+            dlg_srvconfig.AutodeskCheckbox.Checked = this.AutodeskLicenses;
+            dlg_srvconfig.SentinelCheckbox.Checked = this.SentinelLicenses;
 
             if (dlg_srvconfig.ShowDialog() == DialogResult.OK)
             {
-                SrvAddress = dlg_srvconfig.srvTextBox.Text;
-                Properties.Settings.Default.SrvAddress = SrvAddress;
+                this.SrvAddress = dlg_srvconfig.srvTextBox.Text;
+                Properties.Settings.Default.SrvAddress = this.SrvAddress;
                 Properties.Settings.Default.Save();
                 InitConnection();
             }
