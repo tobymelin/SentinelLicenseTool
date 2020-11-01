@@ -54,20 +54,22 @@
     <Compile Include="AboutDialog.Designer.cs">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\LMUtilInterface.cs" />
+    <Compile Include="Interfaces\LMUtilParser.cs" />
     <Compile Include="ServerDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ServerDialog.Designer.cs">
       <DependentUpon>ServerDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="SentinelInterface.cs" />
+    <Compile Include="Interfaces\SentinelInterface.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="LicenseParser.cs" />
+    <Compile Include="Interfaces\LicenseParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainWindow.resx">
@@ -112,5 +114,6 @@
     </Content>
     <None Include="Resources\Refresh_grey_64x.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -26,7 +26,8 @@ namespace LicenseManager
 {
     public partial class MainWindow : Form
     {
-        public LicenseParser.LicenseParser software;
+        // public LicenseParser.LicenseParser software;
+        public LMUtil.LicenseParser software;
         public string SrvAddress;
 
         List<string> noLicenses = new List<string> { "No licenses found." };
@@ -43,7 +44,7 @@ namespace LicenseManager
         bool threadRunning = false;
         string checkLicense;
 
-        private readonly string[] softwareFilter = { "Safe", "EtabNL", "EtabPL", "SAPPL", "SAP", "T.TD.User", "T.SD.Design.U", "CSC.FT.CON.User", "CSIxR" };
+        private readonly string[] softwareFilter = { "Safe", "EtabNL", "EtabPL", "SAPPL", "SAP", "T.TD.User", "T.SD.Design.U", "CSC.FT.CON.User", "CSIxR", "AEC Collection", "Robot Structural Analysis", "AutoCAD", "Revit" };
 
         public MainWindow()
         {
@@ -72,7 +73,8 @@ namespace LicenseManager
          */
         private void InitConnection()
         {
-            software = new LicenseParser.LicenseParser(SrvAddress);
+            software = new LMUtil.LicenseParser(SrvAddress);
+            // software = new LicenseParser.LicenseParser(SrvAddress);
 
             RefreshSoftwareList();
         }

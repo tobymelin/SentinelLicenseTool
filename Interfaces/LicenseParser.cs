@@ -20,21 +20,21 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 
-namespace LicenseParser
+namespace SentinelRMS
 {
     public class LicenseParser
     {
-        private SentinelInterface.SentinelInterface LicSrv;
+        private SentinelInterface LicSrv;
         //private readonly string[] software = { "Safe", "EtabNL", "EtabPL", "SAPPL", "SAP", "T.TD.User", "T.SD.Design.U", "CSC.FT.CON.User", "CSIxR" };
         public Dictionary<string, License> licenseInfo = new Dictionary<string, License>();
 
         public LicenseParser() {
-            LicSrv = new SentinelInterface.SentinelInterface("");
+            LicSrv = new SentinelInterface("");
         }
 
         public LicenseParser(string SrvAddress)
         {
-            LicSrv = new SentinelInterface.SentinelInterface(SrvAddress);
+            LicSrv = new SentinelInterface(SrvAddress);
         }
 
         /* ParseLicenses
@@ -53,7 +53,6 @@ namespace LicenseParser
             //    Thread.Sleep(250);
 
             // Start parsing the licensing output line by line.
-            // TODO: Refactor to use a dictionary parser instead?
             using (StringReader reader = new StringReader(LicSrv.SrvOutput))
             {
                 string line;

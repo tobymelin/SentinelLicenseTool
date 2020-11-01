@@ -1,4 +1,4 @@
-﻿/* Sentinel License Query Tool
+/* Sentinel License Query Tool
  * Copyright (C) 2018-2020  Tobias Melin
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -20,27 +20,27 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 
-namespace SentinelInterface
+namespace LMUtil
 {
     /* SrvReader : manages the interface to the RMS License Server
      *      Allows for fallbacks to use a cached file for troubleshooting
      *      and development purposes.
      */
-    public class SentinelInterface
+    public class LMUtilInterface
     {
         public string SrvOutput;
         public bool isLoading = false;
         public bool FileOverride = false;
         public string SrvAddress = string.Empty;
-        private ProcessStartInfo lsmon;
+        private ProcessStartInfo lmutil;
 
-        public SentinelInterface(string SrvAddress)
+        public LMUtilInterface(string SrvAddress)
         {
-            if (File.Exists("lsmon.txt"))
+            if (File.Exists("lmutil.txt"))
             {
                 this.FileOverride = true;
-                this.SrvOutput = File.ReadAllText("lsmon.txt");
-                Console.WriteLine("lsmon.txt override active");
+                this.SrvOutput = File.ReadAllText("lmutil.txt");
+                Console.WriteLine("lmutil.txt override active");
             }
             else
             {
@@ -59,10 +59,10 @@ namespace SentinelInterface
 
         private void ProcessSetup()
         {
-            lsmon = new ProcessStartInfo
+            lmutil = new ProcessStartInfo
             {
-                FileName = "lsmon.exe",
-                Arguments = SrvAddress,
+                FileName = "lmutil.exe",
+                Arguments = String.Format("lmstat -s ", SrvAddress),
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 RedirectStandardInput = true,
@@ -84,7 +84,7 @@ namespace SentinelInterface
 
             try
             {
-                using (Process process = Process.Start(lsmon))
+                using (Process process = Process.Start(lmutil))
                 {
                     isLoading = true;
 
