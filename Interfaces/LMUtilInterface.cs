@@ -62,7 +62,7 @@ namespace LMUtil
             lmutil = new ProcessStartInfo
             {
                 FileName = "lmutil.exe",
-                Arguments = String.Format("lmstat -s ", SrvAddress),
+                Arguments = String.Format("lmstat -a -c \"27000@{0}\"", SrvAddress),
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 RedirectStandardInput = true,
@@ -119,7 +119,7 @@ namespace LMUtil
                         throw new System.Net.WebException("Timed out while attempting to reach the license server.");
 
                     Console.WriteLine("Finished reading license information.");
-                    //File.WriteAllText("lsmon-latest.txt", SrvOutput);
+                    // File.WriteAllText("lmutil-latest.txt", SrvOutput);
                 }
             }
             // Catch errors related to missing lsmon.exe or lsmon.dll

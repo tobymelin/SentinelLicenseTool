@@ -77,7 +77,7 @@ namespace LicenseManager
          */
         private void InitConnection()
         {
-            software = new LMUtil.LicenseParser(SrvAddress);
+            software = new LMUtil.LicenseParser(this.SrvAddress);
             // software = new LicenseParser.LicenseParser(SrvAddress);
 
             RefreshSoftwareList();
