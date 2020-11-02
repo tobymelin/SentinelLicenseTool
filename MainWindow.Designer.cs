@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.softwareListBox = new System.Windows.Forms.ListBox();
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("asd");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("test");
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.userListBox = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -37,6 +39,7 @@
             this.refreshButton = new System.Windows.Forms.Button();
             this.refreshedLabel = new System.Windows.Forms.Label();
             this.licenseLabel = new System.Windows.Forms.Label();
+            this.softwareListBox = new System.Windows.Forms.ListView();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAllLicensesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,23 +53,6 @@
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // softwareListBox
-            // 
-            this.softwareListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.softwareListBox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.softwareListBox.FormattingEnabled = true;
-            this.softwareListBox.HorizontalScrollbar = true;
-            this.softwareListBox.ItemHeight = 15;
-            this.softwareListBox.Items.AddRange(new object[] {
-            "No licenses found."});
-            this.softwareListBox.Location = new System.Drawing.Point(3, 3);
-            this.softwareListBox.Name = "softwareListBox";
-            this.softwareListBox.Size = new System.Drawing.Size(141, 229);
-            this.softwareListBox.TabIndex = 0;
-            this.softwareListBox.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -77,8 +63,8 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
             this.tableLayoutPanel1.Controls.Add(this.userListBox, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.softwareListBox, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.softwareListBox, 0, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 27);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -177,6 +163,30 @@
             this.licenseLabel.TabIndex = 2;
             this.licenseLabel.Text = "0 / 0 licenses in use.";
             // 
+            // softwareListBox
+            // 
+            this.softwareListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            listViewGroup1.Header = "ListViewGroup";
+            listViewGroup1.Name = "listViewGroup1";
+            this.softwareListBox.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
+            listViewGroup1});
+            this.softwareListBox.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.softwareListBox.HideSelection = false;
+            this.softwareListBox.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1,
+            listViewItem2});
+            this.softwareListBox.Location = new System.Drawing.Point(3, 3);
+            this.softwareListBox.MultiSelect = false;
+            this.softwareListBox.Name = "softwareListBox";
+            this.softwareListBox.Size = new System.Drawing.Size(141, 231);
+            this.softwareListBox.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.softwareListBox.TabIndex = 9;
+            this.softwareListBox.UseCompatibleStateImageBehavior = false;
+            this.softwareListBox.View = System.Windows.Forms.View.SmallIcon;
+            this.softwareListBox.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -259,8 +269,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox softwareListBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button refreshButton;
         private System.Windows.Forms.Label licenseLabel;
@@ -275,6 +283,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem changeServerToolStripMenuItem;
+        private System.Windows.Forms.ListView softwareListBox;
     }
 }
 

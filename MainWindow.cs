@@ -108,7 +108,9 @@ namespace LicenseManager
         {
             if (software.licenseInfo.Count == 0)
             {
-                softwareListBox.DataSource = noLicenses;
+                // softwareListBox.DataSource = noLicenses;
+                softwareListBox.Clear();
+                softwareListBox.Items.Add("No licenses found.");
                 userListBox.DataSource = emptyList;
                 licenseLabel.Text = "No licenses.";
             }
@@ -124,26 +126,36 @@ namespace LicenseManager
                 if (refreshed)
                 {
                     var swList = software.licenseInfo.Keys.ToList();
-                    var prevSelection = softwareListBox.SelectedValue;
+                    var prevSelection = softwareListBox.SelectedIndices;
 
-                    if (showAllLicensesToolStripMenuItem.Checked)
-                        softwareListBox.DataSource = swList;
-                    else
-                        softwareListBox.DataSource = swList.Where(x => softwareFilter.Any(y => x.Contains(y))).ToList();
+                    softwareListBox.Items.Clear();
 
-                    if (prevSelection != null)
+                    softwareListBox.Groups.Add("Autodesk", "Autodesk");
+
+                    foreach (string softwareName in swList) {
+                        if (!showAllLicensesToolStripMenuItem.Checked && softwareFilter.Contains(softwareName)) {
+                            softwareListBox.Items.Add(new ListViewItem(softwareName, softwareListBox.Groups[1]));
+                        }
+                    }
+
+                    if (prevSelection.Count > 0)
                     {
-                        var selectionIdx = softwareListBox.Items.IndexOf(prevSelection.ToString());
-                        if (selectionIdx != -1)
-                            softwareListBox.SetSelected(selectionIdx, true);
+                        softwareListBox.Items[prevSelection[0]].Selected = true;
+                    }
+                    else if(softwareListBox.Items.Count > 0) {
+                        softwareListBox.Items[0].Selected = true;
                     }
                 }
 
-                userListBox.DataSource = software.LicensesInUse(softwareListBox.Text);
+                if (softwareListBox.SelectedItems.Count > 0) {
+                    var selectedItem = softwareListBox.SelectedItems[0].Text;
 
-                licenseLabel.Text = software.licenseInfo[softwareListBox.Text].users.Count.ToString();
-                licenseLabel.Text += " / " + software.licenseInfo[softwareListBox.Text].licensesAvailable;
-                licenseLabel.Text += " licenses in use.";
+                    userListBox.DataSource = software.LicensesInUse(selectedItem);
+
+                    licenseLabel.Text = software.licenseInfo[selectedItem].users.Count.ToString();
+                    licenseLabel.Text += " / " + software.licenseInfo[selectedItem].licensesAvailable;
+                    licenseLabel.Text += " licenses in use.";
+                }
             }
         }
 
