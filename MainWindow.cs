@@ -134,7 +134,7 @@ namespace LicenseManager
 
                     foreach (string softwareName in swList) {
                         if (!showAllLicensesToolStripMenuItem.Checked && softwareFilter.Contains(softwareName)) {
-                            softwareListBox.Items.Add(new ListViewItem(softwareName, softwareListBox.Groups[1]));
+                            softwareListBox.Items.Add(new ListViewItem(softwareName, softwareListBox.Groups[0]));
                         }
                     }
 
