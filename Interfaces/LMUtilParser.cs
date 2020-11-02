@@ -99,7 +99,9 @@ namespace LMUtil
                         // User details
                         match = userLineMatcher.Match(line);
                         userName = match.Groups[1].Value;
-                        licenseExpiry = DateTime.ParseExact(match.Groups[4].Value, "ddd MM/dd HH:mm", dateProvider);
+
+                        Console.WriteLine(match.Groups[4].Value);
+                        licenseExpiry = DateTime.ParseExact(match.Groups[4].Value, "ddd M/d H:mm", dateProvider);
 
                         if (userName != String.Empty && !licenseInfo[licenseName].users.ContainsKey(userName)) {
                             licenseInfo[licenseName].users.Add(userName, new LicenseUser(userName));
