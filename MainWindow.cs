@@ -27,7 +27,9 @@ namespace LicenseManager
     public partial class MainWindow : Form
     {
         // public LicenseParser.LicenseParser software;
-        public LMUtil.LicenseParser software;
+        //public LMUtil.LicenseParser software;
+        public LicenseParser software;
+        public Dictionary<String, LicenseParser> softwareCollection = new Dictionary<string, LicenseParser>();
         public string SrvAddress;
         public bool AutodeskLicenses = true;
         public bool SentinelLicenses = true;
@@ -77,7 +79,7 @@ namespace LicenseManager
          */
         private void InitConnection()
         {
-            software = new LMUtil.LicenseParser(this.SrvAddress);
+            software = new LMUtil.LMUtilLicenseParser(this.SrvAddress);
             // software = new LicenseParser.LicenseParser(SrvAddress);
 
             RefreshSoftwareList();

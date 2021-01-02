@@ -20,22 +20,23 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
+using LicenseManager;
 
 namespace LMUtil
 {
-    public class LicenseParser
+    public class LMUtilLicenseParser : LicenseParser
     {
         private LMUtilInterface LicSrv;
-        public Dictionary<string, License> licenseInfo = new Dictionary<string, License>();
+        //public Dictionary<string, License> licenseInfo = new Dictionary<string, License>();
         private readonly Regex licenseNameMatcher = new Regex(@"^Users of [0-9]{5}(\w+)(_[0-9]+_0F)*:.*");
         private readonly Regex licenseNumberMatcher = new Regex(@".* ([0-9]+) licenses issued.*");
         private readonly Regex userLineMatcher = new Regex(@"\s+([A-Za-z0-9- ]+) ([A-Za-z0-9-]+) ([A-Za-z0-9-]+) \(.*\), start (.*)");
 
-        public LicenseParser() {
+        public LMUtilLicenseParser() {
             LicSrv = new LMUtilInterface("");
         }
 
-        public LicenseParser(string SrvAddress)
+        public LMUtilLicenseParser(string SrvAddress)
         {
             LicSrv = new LMUtilInterface(SrvAddress);
         }
@@ -46,7 +47,7 @@ namespace LMUtil
          * dictionary licenseInfo which contains all the necessary license
          * information for parsing by the main UI.
          */
-        public void ParseLicenses() {
+        public override void ParseLicenses() {
             int lvl;
 
             LicSrv.QueryServer();
@@ -100,8 +101,22 @@ namespace LMUtil
                         match = userLineMatcher.Match(line);
                         userName = match.Groups[1].Value;
 
-                        Console.WriteLine(match.Groups[4].Value);
-                        licenseExpiry = DateTime.ParseExact(match.Groups[4].Value, "ddd M/d H:mm", dateProvider);
+
+                        string timestamp = match.Groups[4].Value;
+                        int month = Int32.Parse(timestamp.Split(' ')[1].Split('/')[0]);
+
+                        if (month > DateTime.Now.Month)
+                        {
+                            timestamp += " " + (DateTime.Now.Year - 1);
+                        }
+                        else
+                        {
+                            timestamp += " " + DateTime.Now.Year.ToString();
+                        }
+
+
+                        Console.WriteLine(timestamp);
+                        licenseExpiry = DateTime.ParseExact(timestamp, "ddd M/d H:mm yyyy", dateProvider);
 
                         if (userName != String.Empty && !licenseInfo[licenseName].users.ContainsKey(userName)) {
                             licenseInfo[licenseName].users.Add(userName, new LicenseUser(userName));
@@ -170,41 +185,7 @@ namespace LMUtil
                 }
             }
         }
-
-        /* LicensesInUse
-         * @softwareName : string corresponding to a software license
-         * 
-         * Helper function used to parse information about users using a
-         * specific piece of software.
-         * 
-         * Returns: a List<string> containing information in the format
-         * "Username [hh:mm]", where the time in the brackets is the amount of
-         * time since the user checked out the license from the server.
-         */
-        public List<string> LicensesInUse(string softwareName)
-        {
-            if (!licenseInfo.ContainsKey(softwareName) || licenseInfo[softwareName].users.Count == 0)
-                return new List<string> { "No licenses in use." };
-
-            List<string> userList = new List<string>();
-
-            foreach (KeyValuePair<string, LicenseUser> userInfo in licenseInfo[softwareName].users)
-            {
-                var userDate = userInfo.Value.dateOpened;
-                var timeDiff = DateTime.Now.Subtract(userDate);
-                int minutesUsed = (int)timeDiff.TotalMinutes % 60;
-                int hoursUsed = (int)timeDiff.TotalMinutes / 60;
-
-                string timeString = "[";
-                timeString += hoursUsed + "h ";
-                timeString += minutesUsed + "m]";
-
-                userList.Add(userInfo.Key + " " + timeString);
-            }
-
-            return userList;
-        }
-
+        
         private Dictionary<string, string> AutodeskProducts = new Dictionary<string, string>() {
             { "RVT", "Revit" },
             { "ACD", "AutoCAD" },
@@ -212,49 +193,5 @@ namespace LMUtil
             { "RSAPRO", "Robot Structural Analysis" },
             { "AECCOL_T_F", "AEC Collection" }
         };
-    }
-
-    /* License
-     * 
-     * Class providing information for a specific license.
-     * Currently limited to the license name, how many licenses are available,
-     * and a dictionary of users currently using the software which in turn implements
-     * the LicenseUser class (a List<LicenserUser> could be used, but
-     * would add unnecessary code verbosity since a .Find function would
-     * need to be used instead of .ContainsKey in LicenseParser())
-     */
-    public class License
-    {
-        public string softwareName;
-        public int licensesAvailable = 0;
-        public Dictionary<string, LicenseUser> users = new Dictionary<string, LicenseUser> { };
-
-        public License(string SoftwareName)
-        {
-            this.softwareName = SoftwareName;
-        }
-
-        public License(string SoftwareName, int LicensesAvailable) {
-            this.softwareName = SoftwareName;
-            this.licensesAvailable = LicensesAvailable;
-        }
-    }
-
-    /* LicenseUser
-     * 
-     * Class containing details about the user of a specific license.
-     * Includes the UserName for easy reference even though this is 
-     * technically handled by the dictionary key. 
-     */
-    public class LicenseUser
-    {
-        public string userName;
-        public int licensesInUse = 1;
-        public DateTime dateOpened;
-
-        public LicenseUser(string UserName)
-        {
-            this.userName = UserName;
-        }
     }
 }
