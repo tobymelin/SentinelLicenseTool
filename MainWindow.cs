@@ -40,6 +40,8 @@ namespace LicenseManager
         DateTime lastRefreshed;
         bool refreshFailed = false;
 
+        EventHandler listChanged;
+
         AboutDialog dlg_about = new AboutDialog();
         ServerDialog dlg_srvconfig = new ServerDialog();
 
@@ -69,6 +71,9 @@ namespace LicenseManager
             this.KeyPress += new KeyPressEventHandler(Konami);
             softwareListBox.KeyPress += new KeyPressEventHandler(Konami);
             userListBox.KeyPress += new KeyPressEventHandler(Konami);
+
+            listChanged = new EventHandler(listBox1_SelectedIndexChanged);
+            //this.softwareListBox.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
         }
 
         /* InitConnection()
@@ -81,13 +86,15 @@ namespace LicenseManager
         {
             software = new LMUtil.LMUtilLicenseParser(this.SrvAddress);
             // software = new LicenseParser.LicenseParser(SrvAddress);
+            softwareCollection.Add("Autodesk", new LMUtil.LMUtilLicenseParser(this.SrvAddress));
+            softwareCollection.Add("Tekla", new SentinelRMS.SentinelLicenseParser(this.SrvAddress));
 
             RefreshSoftwareList();
         }
 
         public void RefreshSoftwareList()
         {
-            if (software == null)
+            if (softwareCollection.Count == 0)
             {
                 InitConnection();
                 return;
@@ -108,7 +115,9 @@ namespace LicenseManager
          */
         public void UpdateLists(bool refreshed = false)
         {
-            if (software.licenseInfo.Count == 0)
+            softwareListBox.SelectedIndexChanged -= listChanged;
+
+            if (softwareCollection.Count == 0)
             {
                 // softwareListBox.DataSource = noLicenses;
                 softwareListBox.Clear();
@@ -125,18 +134,30 @@ namespace LicenseManager
                  * 
                  * Attempts to maintain the previously selected item if possible.
                  */
+
                 if (refreshed)
                 {
-                    var swList = software.licenseInfo.Keys.ToList();
+                    //var swList = software.licenseInfo.Keys.ToList();
                     var prevSelection = softwareListBox.SelectedIndices;
 
                     softwareListBox.Items.Clear();
+                    softwareListBox.Groups.Clear();
 
-                    softwareListBox.Groups.Add("Autodesk", "Autodesk");
+                    foreach (string parser in softwareCollection.Keys)
+                    {
+                        var grp = softwareListBox.Groups.Add(parser, parser);
+                        var swList = softwareCollection[parser].licenseInfo.Keys.ToList();
 
-                    foreach (string softwareName in swList) {
-                        if (!showAllLicensesToolStripMenuItem.Checked && softwareFilter.Contains(softwareName)) {
-                            softwareListBox.Items.Add(new ListViewItem(softwareName, softwareListBox.Groups[0]));
+                        foreach (string softwareName in swList)
+                        {
+                            //var checkIfExists = from sw in softwareFilter where sw.StartsWith(softwareName) select sw;
+                            var checkIfExists = softwareFilter.Where(x => softwareName.StartsWith(x)).ToList();
+
+                            //if (showAllLicensesToolStripMenuItem.Checked || softwareFilter.Contains(softwareName))
+                            if (showAllLicensesToolStripMenuItem.Checked || checkIfExists.Count > 0)
+                            {
+                                softwareListBox.Items.Add(new ListViewItem(softwareName, grp));
+                            }
                         }
                     }
 
@@ -144,7 +165,8 @@ namespace LicenseManager
                     {
                         softwareListBox.Items[prevSelection[0]].Selected = true;
                     }
-                    else if(softwareListBox.Items.Count > 0) {
+                    else if(softwareListBox.Items.Count > 0)
+                    {
                         softwareListBox.Items[0].Selected = true;
                     }
                 }
@@ -152,13 +174,17 @@ namespace LicenseManager
                 if (softwareListBox.SelectedItems.Count > 0) {
                     var selectedItem = softwareListBox.SelectedItems[0].Text;
 
-                    userListBox.DataSource = software.LicensesInUse(selectedItem);
+                    string parserName = softwareListBox.SelectedItems[0].Group.Name;
 
-                    licenseLabel.Text = software.licenseInfo[selectedItem].users.Count.ToString();
-                    licenseLabel.Text += " / " + software.licenseInfo[selectedItem].licensesAvailable;
+                    userListBox.DataSource = softwareCollection[parserName].LicensesInUse(selectedItem);
+
+                    licenseLabel.Text = softwareCollection[parserName].licenseInfo[selectedItem].users.Count.ToString();
+                    licenseLabel.Text += " / " + softwareCollection[parserName].licenseInfo[selectedItem].licensesAvailable;
                     licenseLabel.Text += " licenses in use.";
                 }
             }
+
+            softwareListBox.SelectedIndexChanged += listChanged;
         }
 
         /* RefreshButton_click
@@ -270,7 +296,10 @@ namespace LicenseManager
         {
             try
             {
-                software.ParseLicenses();
+                foreach (LicenseParser parser in softwareCollection.Values)
+                {
+                    parser.ParseLicenses();
+                }
                 refreshFailed = false;
             }
             catch (System.ComponentModel.Win32Exception)
@@ -318,6 +347,7 @@ namespace LicenseManager
         // update the lists in the UI to reflect the altered setting.
         private void showAllLicensesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("Checkbox pressed");
             UpdateLists(true);
         }
 

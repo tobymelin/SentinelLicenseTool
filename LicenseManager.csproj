@@ -54,7 +54,7 @@
     <Compile Include="AboutDialog.Designer.cs">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\ParserInterface.cs" />
+    <Compile Include="Interfaces\LicenseParser.cs" />
     <Compile Include="Interfaces\LMUtilInterface.cs" />
     <Compile Include="Interfaces\LMUtilParser.cs" />
     <Compile Include="ServerDialog.cs">
@@ -70,7 +70,7 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\LicenseParser.cs" />
+    <Compile Include="Interfaces\SentinelParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainWindow.resx">
