@@ -114,8 +114,6 @@ namespace LMUtil
                             timestamp += " " + DateTime.Now.Year.ToString();
                         }
 
-
-                        Console.WriteLine(timestamp);
                         licenseExpiry = DateTime.ParseExact(timestamp, "ddd M/d H:mm yyyy", dateProvider);
 
                         if (userName != String.Empty && !licenseInfo[licenseName].users.ContainsKey(userName)) {

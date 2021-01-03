@@ -44,6 +44,7 @@ Requires *lsmon.exe* and *lsapiw32.dll*, both of which are distributed with some
 ### v1.5
 - Continued code cleanup to prepare for Autodesk licenses
 - Fixed bug where automatically refreshing a license could crash the program if the update was timing out
+- Fixed bug where licenseparser would crash for Autodesk licenses if start date was last year
 
 ## TODO
 - Add license expiry date?

@@ -34,7 +34,6 @@ namespace LicenseManager
         public bool AutodeskLicenses = true;
         public bool SentinelLicenses = true;
 
-        List<string> noLicenses = new List<string> { "No licenses found." };
         List<string> emptyList = new List<string> { };
         string keySequence = string.Empty;
         DateTime lastRefreshed;
@@ -84,10 +83,10 @@ namespace LicenseManager
          */
         private void InitConnection()
         {
-            software = new LMUtil.LMUtilLicenseParser(this.SrvAddress);
+            //software = new LMUtil.LMUtilLicenseParser(this.SrvAddress);
             // software = new LicenseParser.LicenseParser(SrvAddress);
             softwareCollection.Add("Autodesk", new LMUtil.LMUtilLicenseParser(this.SrvAddress));
-            softwareCollection.Add("Tekla", new SentinelRMS.SentinelLicenseParser(this.SrvAddress));
+            softwareCollection.Add("Tekla / CSI", new SentinelRMS.SentinelLicenseParser(this.SrvAddress));
 
             RefreshSoftwareList();
         }
@@ -119,7 +118,6 @@ namespace LicenseManager
 
             if (softwareCollection.Count == 0)
             {
-                // softwareListBox.DataSource = noLicenses;
                 softwareListBox.Clear();
                 softwareListBox.Items.Add("No licenses found.");
                 userListBox.DataSource = emptyList;
