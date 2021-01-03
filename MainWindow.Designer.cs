@@ -44,6 +44,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -168,6 +169,8 @@
             this.softwareListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.softwareListBox.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
             this.softwareListBox.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.softwareListBox.HideSelection = false;
             this.softwareListBox.Location = new System.Drawing.Point(4, 4);
@@ -178,7 +181,7 @@
             this.softwareListBox.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.softwareListBox.TabIndex = 9;
             this.softwareListBox.UseCompatibleStateImageBehavior = false;
-            this.softwareListBox.View = System.Windows.Forms.View.SmallIcon;
+            this.softwareListBox.View = System.Windows.Forms.View.Details;
             // 
             // fileToolStripMenuItem
             // 
@@ -194,21 +197,21 @@
             // 
             this.showAllLicensesToolStripMenuItem.CheckOnClick = true;
             this.showAllLicensesToolStripMenuItem.Name = "showAllLicensesToolStripMenuItem";
-            this.showAllLicensesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.showAllLicensesToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
             this.showAllLicensesToolStripMenuItem.Text = "Show all licenses";
             this.showAllLicensesToolStripMenuItem.Click += new System.EventHandler(this.showAllLicensesToolStripMenuItem_Click);
             // 
             // changeServerToolStripMenuItem
             // 
             this.changeServerToolStripMenuItem.Name = "changeServerToolStripMenuItem";
-            this.changeServerToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.changeServerToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
             this.changeServerToolStripMenuItem.Text = "Server settings...";
             this.changeServerToolStripMenuItem.Click += new System.EventHandler(this.changeServerToolStripMenuItem_Click);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
             this.quitToolStripMenuItem.Text = "&Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
@@ -235,9 +238,13 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(469, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(469, 28);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Width = 70;
             // 
             // MainWindow
             // 
@@ -279,6 +286,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem changeServerToolStripMenuItem;
         private System.Windows.Forms.ListView softwareListBox;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }
 

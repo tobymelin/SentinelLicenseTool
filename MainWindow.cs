@@ -74,6 +74,8 @@ namespace LicenseManager
             userListBox.KeyPress += new KeyPressEventHandler(Konami);
 
             listChanged = new EventHandler(listBox1_SelectedIndexChanged);
+
+            softwareListBox.Columns[0].Width = softwareListBox.Width - 10;
         }
 
         /* InitConnection()
