@@ -50,7 +50,8 @@ namespace LicenseManager
         string checkLicense;
         string checkLicenseGroup;
 
-        private readonly string[] softwareFilter = { "Safe", "EtabNL", "EtabPL", "SAPPL", "SAP", "T.TD.User", "T.SD.Design.U", "CSC.FT.CON.User", "CSIxR", "AEC Collection", "Robot Structural Analysis", "AutoCAD", "Revit", "Civil 3D" };
+        private readonly string[] softwareFilter = { "Safe", "EtabNL", "EtabPL", "SAPPL", "SAP", "T.TD.User", "T.SD.Design.U", "CSC.FT.CON.User", "CSIxR" };
+        private readonly string[] softwareFilterExact = { "AEC Collection", "Robot Structural Analysis", "AutoCAD", "Revit", "Civil 3D" };
 
         public MainWindow()
         {
@@ -154,8 +155,9 @@ namespace LicenseManager
                         foreach (string softwareName in swList)
                         {
                             var checkIfExists = softwareFilter.Where(x => softwareName.StartsWith(x)).ToList();
+                            var checkIfExistsExact = softwareFilterExact.Contains(softwareName);
 
-                            if (showAllLicensesToolStripMenuItem.Checked || checkIfExists.Count > 0)
+                            if (showAllLicensesToolStripMenuItem.Checked || checkIfExists.Count > 0 || checkIfExistsExact)
                             {
                                 softwareListBox.Items.Add(new ListViewItem(softwareName, grp));
                             }
