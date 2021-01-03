@@ -48,6 +48,7 @@ namespace LicenseManager
         Thread licNotifierThread;
         bool threadRunning = false;
         string checkLicense;
+        string checkLicenseGroup;
 
         private readonly string[] softwareFilter = { "Safe", "EtabNL", "EtabPL", "SAPPL", "SAP", "T.TD.User", "T.SD.Design.U", "CSC.FT.CON.User", "CSIxR", "AEC Collection", "Robot Structural Analysis", "AutoCAD", "Revit", "Civil 3D" };
 
@@ -242,7 +243,10 @@ namespace LicenseManager
                 // Reset keySequence automatically after succesful input
                 keySequence = string.Empty;
 
-                if (software.licenseInfo[softwareListBox.Text].licensesAvailable > software.licenseInfo[softwareListBox.Text].users.Count)
+                checkLicense = softwareListBox.SelectedItems[0].Text;
+                checkLicenseGroup = softwareListBox.SelectedItems[0].Group.Name;
+
+                if (softwareCollection[checkLicenseGroup].licenseInfo[checkLicense].licensesAvailable > softwareCollection[checkLicenseGroup].licenseInfo[checkLicense].users.Count)
                     return;
 
                 if (licNotifierThread == null || !licNotifierThread.IsAlive)
@@ -254,7 +258,6 @@ namespace LicenseManager
                 else
                     return;
 
-                checkLicense = softwareListBox.Text;
                 licNotifierThread.Start();
 
                 if (licNotifierThread != null)
@@ -273,14 +276,19 @@ namespace LicenseManager
          */
         private void CheckLicense()
         {
-            if (!software.licenseInfo.ContainsKey(checkLicense))
+            if (!softwareCollection[checkLicenseGroup].licenseInfo.ContainsKey(checkLicense))
+            {
+                Invoke(new Action(() => { refreshButton.Enabled = true; }));
+                threadRunning = false;
+
                 return;
+            }
 
             while (threadRunning)
             {
-                if (software.licenseInfo[checkLicense].licensesAvailable > software.licenseInfo[checkLicense].users.Count)
+                if (softwareCollection[checkLicenseGroup].licenseInfo[checkLicense].licensesAvailable > softwareCollection[checkLicenseGroup].licenseInfo[checkLicense].users.Count)
                 {
-                    MessageBox.Show("License available!");
+                    MessageBox.Show("License available for " + checkLicense + "!");
                     break;
                 }
                 Thread.Sleep(TimeSpan.FromSeconds(60));
