@@ -242,7 +242,8 @@ namespace LicenseManager
             if (e.KeyChar >= (int)'A' && e.KeyChar <= (int)'z')
                 keySequence += e.KeyChar;
 
-            if (keySequence.ToUpper() == "UUDDLRLRBA")
+            // Check if sequence is correct or Ctrl+K has been pressed (KeyChar = 11)
+            if (keySequence.ToUpper() == "UUDDLRLRBA" || e.KeyChar == 11)
             {
                 // Reset keySequence automatically after succesful input
                 keySequence = string.Empty;
