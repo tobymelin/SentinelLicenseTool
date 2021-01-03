@@ -38,9 +38,14 @@ namespace LicenseManager
                 var userDate = userInfo.Value.dateOpened;
                 var timeDiff = DateTime.Now.Subtract(userDate);
                 int minutesUsed = (int)timeDiff.TotalMinutes % 60;
-                int hoursUsed = (int)timeDiff.TotalMinutes / 60;
+                int hoursUsed = (int)timeDiff.TotalMinutes / 60 % 24;
+                int daysUsed = (int)timeDiff.TotalMinutes / 60 / 24;
 
                 string timeString = "[";
+                if (daysUsed > 0)
+                {
+                    timeString += daysUsed + "d ";
+                }
                 timeString += hoursUsed + "h ";
                 timeString += minutesUsed + "m]";
 
