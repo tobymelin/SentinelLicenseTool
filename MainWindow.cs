@@ -49,7 +49,7 @@ namespace LicenseManager
         bool threadRunning = false;
         string checkLicense;
 
-        private readonly string[] softwareFilter = { "Safe", "EtabNL", "EtabPL", "SAPPL", "SAP", "T.TD.User", "T.SD.Design.U", "CSC.FT.CON.User", "CSIxR", "AEC Collection", "Robot Structural Analysis", "AutoCAD", "Revit" };
+        private readonly string[] softwareFilter = { "Safe", "EtabNL", "EtabPL", "SAPPL", "SAP", "T.TD.User", "T.SD.Design.U", "CSC.FT.CON.User", "CSIxR", "AEC Collection", "Robot Structural Analysis", "AutoCAD", "Revit", "Civil 3D" };
 
         public MainWindow()
         {

@@ -132,7 +132,8 @@ namespace LMUtil
             { "ACD", "AutoCAD" },
             { "ACDLT", "AutoCAD LT" },
             { "RSAPRO", "Robot Structural Analysis" },
-            { "AECCOL_T_F", "AEC Collection" }
+            { "AECCOL_T_F", "AEC Collection" },
+            { "CIV3D", "Civil 3D" }
         };
     }
 }
