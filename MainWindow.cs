@@ -72,7 +72,6 @@ namespace LicenseManager
             userListBox.KeyPress += new KeyPressEventHandler(Konami);
 
             listChanged = new EventHandler(listBox1_SelectedIndexChanged);
-            //this.softwareListBox.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
         }
 
         /* InitConnection()
@@ -83,9 +82,8 @@ namespace LicenseManager
          */
         private void InitConnection()
         {
-            //software = new LMUtil.LMUtilLicenseParser(this.SrvAddress);
-            // software = new LicenseParser.LicenseParser(SrvAddress);
             softwareCollection.Clear();
+
             if (this.AutodeskLicenses)
             {
                 softwareCollection.Add("Autodesk", new LMUtil.LMUtilLicenseParser(this.SrvAddress));
@@ -142,7 +140,6 @@ namespace LicenseManager
 
                 if (refreshed)
                 {
-                    //var swList = software.licenseInfo.Keys.ToList();
                     var prevSelection = softwareListBox.SelectedIndices;
 
                     softwareListBox.Items.Clear();
@@ -155,10 +152,8 @@ namespace LicenseManager
 
                         foreach (string softwareName in swList)
                         {
-                            //var checkIfExists = from sw in softwareFilter where sw.StartsWith(softwareName) select sw;
                             var checkIfExists = softwareFilter.Where(x => softwareName.StartsWith(x)).ToList();
 
-                            //if (showAllLicensesToolStripMenuItem.Checked || softwareFilter.Contains(softwareName))
                             if (showAllLicensesToolStripMenuItem.Checked || checkIfExists.Count > 0)
                             {
                                 softwareListBox.Items.Add(new ListViewItem(softwareName, grp));

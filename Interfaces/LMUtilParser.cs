@@ -123,68 +123,11 @@ namespace LMUtil
 
                         userName = String.Empty;
                     }
-
-                    // else
-                    // {
-                    //     tmpline = LineMatcher(line);
-                    //     if (tmpline[0] == "Feature name")
-                    //         licenseName = tmpline[1];
-                    //     else if (tmpline[0] == "Feature name")
-                    //         licenseName = string.Empty;
-
-                    //     if (licenseLines && lvl == 1)
-                    //     {
-                    //         licenseLines = false;
-                    //         noLicenses = 0;
-                    //     }
-
-                    //     if (licenseName.Length > 0)
-                    //     {
-                    //         if (tmpline[0] == "Feature version" && !licenseInfo.ContainsKey(licenseName) && licenseName.Length > 0)
-                    //         {
-                    //             licenseName += " " + tmpline[1];
-                    //             licenseInfo.Add(licenseName, new License(licenseName));
-                    //         }
-                    //         else if (tmpline[0] == "Maximum concurrent user(s)" && licenseLines)
-                    //         {
-                    //             noLicenses += int.Parse(tmpline[1]);
-                    //         }
-                    //         else if (tmpline[0] == "Expiration date" && licenseInfo.ContainsKey(licenseName) && licenseLines)
-                    //         {
-                    //             if (tmpline[1] != "License has no expiration")
-                    //             {
-                    //                 licenseExpiry = DateTime.ParseExact(tmpline[1].Trim(), "ddd MMM dd HH:mm:ss yyyy", dateProvider);
-
-                    //                 if (DateTime.Today > licenseExpiry)
-                    //                 {
-                    //                     licenseLines = false;
-                    //                     continue;
-                    //                 }
-                    //             }
-
-                    //             licenseInfo[licenseName].licensesAvailable += noLicenses;
-                    //             noLicenses = 0;
-                    //         }
-                    //         else if (tmpline[0] == "User name" && licenseInfo.ContainsKey(licenseName))
-                    //         {
-                    //             userName = tmpline[1];
-
-                    //             if (!licenseInfo[licenseName].users.ContainsKey(userName))
-                    //                 licenseInfo[licenseName].users.Add(userName, new LicenseUser(userName));
-                    //             else
-                    //                 licenseInfo[licenseName].users[userName].licensesInUse += 1;
-                    //         }
-                    //         else if (tmpline[0] == "Status" && licenseInfo.ContainsKey(licenseName) && licenseInfo[licenseName].users.ContainsKey(userName))
-                    //         {
-                    //             licenseInfo[licenseName].users[userName].dateOpened = DateTime.ParseExact(tmpline[1].Replace("Running since ", "").Trim(), "ddd MMM dd HH:mm:ss yyyy", dateProvider);
-                    //         }
-                    //     }
-                    // }
                 }
             }
         }
         
-        private Dictionary<string, string> AutodeskProducts = new Dictionary<string, string>() {
+        private readonly Dictionary<string, string> AutodeskProducts = new Dictionary<string, string>() {
             { "RVT", "Revit" },
             { "ACD", "AutoCAD" },
             { "ACDLT", "AutoCAD LT" },
