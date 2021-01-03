@@ -81,7 +81,7 @@
             this.userListBox.HorizontalScrollbar = true;
             this.userListBox.ItemHeight = 20;
             this.userListBox.Location = new System.Drawing.Point(200, 4);
-            this.userListBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.userListBox.Margin = new System.Windows.Forms.Padding(4);
             this.userListBox.Name = "userListBox";
             this.userListBox.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.userListBox.Size = new System.Drawing.Size(233, 284);
@@ -130,7 +130,7 @@
             this.refreshButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.refreshButton.Image = ((System.Drawing.Image)(resources.GetObject("refreshButton.Image")));
             this.refreshButton.Location = new System.Drawing.Point(5, 4);
-            this.refreshButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.refreshButton.Margin = new System.Windows.Forms.Padding(4);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(32, 30);
             this.refreshButton.TabIndex = 2;
@@ -171,7 +171,7 @@
             this.softwareListBox.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.softwareListBox.HideSelection = false;
             this.softwareListBox.Location = new System.Drawing.Point(4, 4);
-            this.softwareListBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.softwareListBox.Margin = new System.Windows.Forms.Padding(4);
             this.softwareListBox.MultiSelect = false;
             this.softwareListBox.Name = "softwareListBox";
             this.softwareListBox.Size = new System.Drawing.Size(188, 284);
@@ -194,21 +194,21 @@
             // 
             this.showAllLicensesToolStripMenuItem.CheckOnClick = true;
             this.showAllLicensesToolStripMenuItem.Name = "showAllLicensesToolStripMenuItem";
-            this.showAllLicensesToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.showAllLicensesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.showAllLicensesToolStripMenuItem.Text = "Show all licenses";
             this.showAllLicensesToolStripMenuItem.Click += new System.EventHandler(this.showAllLicensesToolStripMenuItem_Click);
             // 
             // changeServerToolStripMenuItem
             // 
             this.changeServerToolStripMenuItem.Name = "changeServerToolStripMenuItem";
-            this.changeServerToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
-            this.changeServerToolStripMenuItem.Text = "Change server...";
+            this.changeServerToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.changeServerToolStripMenuItem.Text = "Server settings...";
             this.changeServerToolStripMenuItem.Click += new System.EventHandler(this.changeServerToolStripMenuItem_Click);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.quitToolStripMenuItem.Text = "&Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
@@ -248,7 +248,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainWindow";
             this.Text = "License Manager";
             this.tableLayoutPanel1.ResumeLayout(false);

@@ -85,8 +85,15 @@ namespace LicenseManager
         {
             //software = new LMUtil.LMUtilLicenseParser(this.SrvAddress);
             // software = new LicenseParser.LicenseParser(SrvAddress);
-            softwareCollection.Add("Autodesk", new LMUtil.LMUtilLicenseParser(this.SrvAddress));
-            softwareCollection.Add("Trimble / CSI", new SentinelRMS.SentinelLicenseParser(this.SrvAddress));
+            softwareCollection.Clear();
+            if (this.AutodeskLicenses)
+            {
+                softwareCollection.Add("Autodesk", new LMUtil.LMUtilLicenseParser(this.SrvAddress));
+            }
+            if (this.SentinelLicenses)
+            {
+                softwareCollection.Add("Trimble / CSI", new SentinelRMS.SentinelLicenseParser(this.SrvAddress));
+            }
 
             RefreshSoftwareList();
         }
@@ -358,7 +365,11 @@ namespace LicenseManager
             if (dlg_srvconfig.ShowDialog() == DialogResult.OK)
             {
                 this.SrvAddress = dlg_srvconfig.srvTextBox.Text;
+                this.AutodeskLicenses = dlg_srvconfig.AutodeskCheckbox.Checked;
+                this.SentinelLicenses = dlg_srvconfig.SentinelCheckbox.Checked;
                 Properties.Settings.Default.SrvAddress = this.SrvAddress;
+                Properties.Settings.Default.FlexNetLicenses = this.AutodeskLicenses;
+                Properties.Settings.Default.RMSLicenses = this.SentinelLicenses;
                 Properties.Settings.Default.Save();
                 InitConnection();
             }
