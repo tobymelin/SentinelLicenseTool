@@ -32,11 +32,7 @@ namespace LMUtil
         private readonly Regex licenseNumberMatcher = new Regex(@".* ([0-9]+) licenses issued.*");
         private readonly Regex userLineMatcher = new Regex(@"\s+([A-Za-z0-9- ]+) ([A-Za-z0-9-]+) ([A-Za-z0-9-]+) \(.*\), start (.*)");
 
-        public LMUtilLicenseParser() {
-            LicSrv = new LMUtilInterface("");
-        }
-
-        public LMUtilLicenseParser(string SrvAddress)
+        public LMUtilLicenseParser(string SrvAddress = "")
         {
             LicSrv = new LMUtilInterface(SrvAddress);
         }

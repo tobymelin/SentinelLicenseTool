@@ -29,11 +29,7 @@ namespace SentinelRMS
         //private readonly string[] software = { "Safe", "EtabNL", "EtabPL", "SAPPL", "SAP", "T.TD.User", "T.SD.Design.U", "CSC.FT.CON.User", "CSIxR" };
         //public Dictionary<string, License> licenseInfo = new Dictionary<string, License>();
 
-        public SentinelLicenseParser() {
-            LicSrv = new SentinelInterface("");
-        }
-
-        public SentinelLicenseParser(string SrvAddress)
+        public SentinelLicenseParser(string SrvAddress = "")
         {
             LicSrv = new SentinelInterface(SrvAddress);
         }
