@@ -86,7 +86,7 @@ namespace LicenseManager
             //software = new LMUtil.LMUtilLicenseParser(this.SrvAddress);
             // software = new LicenseParser.LicenseParser(SrvAddress);
             softwareCollection.Add("Autodesk", new LMUtil.LMUtilLicenseParser(this.SrvAddress));
-            softwareCollection.Add("Tekla / CSI", new SentinelRMS.SentinelLicenseParser(this.SrvAddress));
+            softwareCollection.Add("Trimble / CSI", new SentinelRMS.SentinelLicenseParser(this.SrvAddress));
 
             RefreshSoftwareList();
         }
@@ -300,16 +300,16 @@ namespace LicenseManager
                 }
                 refreshFailed = false;
             }
-            catch (System.ComponentModel.Win32Exception)
+            catch (System.ComponentModel.Win32Exception err)
             {
-                MessageBox.Show("ERROR: Could not find lsmon.exe. Please ensure this executable is in " +
+                MessageBox.Show("ERROR: Could not find " + err.Message + ". Please ensure this executable is in " +
                     "the same folder as the main program. License monitor will now exit.",
                     "lsmon.exe not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 refreshFailed = true;
             }
             catch (System.Net.WebException)
             {
-                MessageBox.Show("ERROR: Could not reach destination server. Please ensure the computer " +
+                MessageBox.Show("ERROR: Could not reach destination server" + SrvAddress + ". Please ensure the computer " +
                     "has a working internet connection and the license server is online",
                     "License server unavailable", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 refreshFailed = true;

@@ -127,7 +127,7 @@ namespace LMUtil
             catch (System.ComponentModel.Win32Exception e)
             {
                 SrvOutput = "";
-                throw new System.ComponentModel.Win32Exception("Error", e);
+                throw new System.ComponentModel.Win32Exception(lmutil.FileName, e);
             }
         }
     }
