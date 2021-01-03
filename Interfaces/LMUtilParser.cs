@@ -124,6 +124,7 @@ namespace LMUtil
         }
         
         private readonly Dictionary<string, string> AutodeskProducts = new Dictionary<string, string>() {
+            { "AECCOL_T_F", "AEC Collection" },
             { "ARNOL", "Arnold"},
             { "3DSMAX", "3DS Max"},
             { "3DSMXS", "3DS Max with Softimage"},
@@ -240,7 +241,7 @@ namespace LMUtil
             { "RECAP", "ReCap Pro"},
             { "RVT", "Revit"},
             { "RVTLT", "Revit LT"},
-            { "RSAPRO", "Robot Structural Analysis Professional"},
+            { "RSAPRO", "Robot Structural Analysis"},
             { "SBPNL", "SketchBook Pro"},
             { "SBRDES", "Structural Bridge Design"},
             { "SFS", "Structural Fabrication Suite"},
