@@ -50,7 +50,7 @@ namespace LicenseManager
         string checkLicense;
         string checkLicenseGroup;
 
-        private readonly string[] softwareFilter = { "Safe", "EtabNL", "EtabPL", "SAPPL", "SAP", "T.TD.User", "T.SD.Design.U", "CSC.FT.CON.User", "CSIxR" };
+        private readonly string[] softwareFilter = { "Safe", "EtabNL", "EtabPL", "SAPPL", "SAP", "T.TD.User", "T.SD.User", "CSC.FT.CON.User", "CSIxR" };
         private readonly string[] softwareFilterExact = { "AEC Collection", "Robot Structural Analysis", "AutoCAD", "Revit", "Civil 3D" };
 
         public MainWindow()
