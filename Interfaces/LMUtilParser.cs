@@ -30,7 +30,7 @@ namespace LMUtil
         //public Dictionary<string, License> licenseInfo = new Dictionary<string, License>();
         private readonly Regex licenseNameMatcher = new Regex(@"^Users of [0-9]{5}(\w+)(_[0-9]+_0F)*:.*");
         private readonly Regex licenseNumberMatcher = new Regex(@".* ([0-9]+) licenses issued.*");
-        private readonly Regex userLineMatcher = new Regex(@"\s+([A-Za-z0-9- ]+) ([A-Za-z0-9-]+) ([A-Za-z0-9-]+) \(.*\), start (.*)");
+        private readonly Regex userLineMatcher = new Regex(@"^\s+([A-Za-z0-9'.-_!#^~ ]+) ([A-Za-z0-9-]+) ([A-Za-z0-9-]+) \(.*\), start (.*)");
 
         public LMUtilLicenseParser(string SrvAddress = "")
         {
