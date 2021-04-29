@@ -47,7 +47,7 @@ namespace LMUtil
                 this.FileOverride = false;
 
                 if (SrvAddress == "") {
-                    this.SrvAddress = "DC01";
+                    this.SrvAddress = "USER-PC";
                 }
                 else {
                     this.SrvAddress = SrvAddress;

@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="SrvAddress" Type="System.String" Scope="User">
-      <Value Profile="(Default)">DC01</Value>
+      <Value Profile="(Default)">USER-PC</Value>
     </Setting>
     <Setting Name="FlexNetLicenses" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
